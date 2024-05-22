@@ -1,0 +1,47 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    
+    ViewData["Title"] = Localizer["Menu"];
+}
+
+<h1>@ViewData["WelcomeMessage"]</h1>
+
+
+
+@model List<Jidelnicek.web.Models.Entities.Menu>
+<div class="text-center">
+<h1 class="display-4">
+    <img src="@Url.Action("DisplayImage", "Images", new { fileName = "title 2.jpg" })" alt="Image" />
+    </h1>
+</div>
+
+<h2 class="text-left">@Localizer["Monday 21.5.2024"]</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th> </th>
+            <th>@Localizer["Dish"]</th>
+            <th> </th>
+            <th>@Localizer["Price"]</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var student in Model)
+        {
+            <tr>
+                <td>@student.Number</td>
+                <td>@student.Dish</td>
+                <td>@student.Grams</td>
+                <td>@student.Price</td>
+                <td> 
+                    <a class="btn btn-primary" asp-controller="Students" asp-action="Edit" asp-route-id="@student.Id">Edit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+
+</table>
