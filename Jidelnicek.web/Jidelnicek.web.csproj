@@ -18,6 +18,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="Resources\SharedResources.en-US.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="Controllers\Imagecontroller.cs" />
     <Content Include="Models\Image.cs" />
   </ItemGroup>
@@ -35,7 +39,7 @@
     <Folder Include="wwwroot\Languages\" />
   </ItemGroup>
 
-	<ItemGroup>
+  <ItemGroup>
     <None Include="Resources\Dictionary.en-US.resx">
       <SubType>Designer</SubType>
     </None>
