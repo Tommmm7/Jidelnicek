@@ -47,7 +47,7 @@ namespace Jidelnicek.web.Controllers
         [HttpGet]
         public async Task<IActionResult> List()
         {
-            var str = _localizer["WelcomeMessage"].Value;
+            var str = _localize["WelcomeMessage"].Value;
             var students = await dbContext.Menu.ToListAsync();
 
             return View(students);
@@ -68,6 +68,7 @@ namespace Jidelnicek.web.Controllers
 
             if (student is not null) 
             {
+                student.Number = viewModel.Number;
                 student.Dish = viewModel.Dish;
                 student.Grams = viewModel.Grams;   
                 student.Price = viewModel.Price;
