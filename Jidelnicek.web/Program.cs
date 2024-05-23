@@ -7,10 +7,10 @@ using System.Globalization;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddLocalization(options => options.ResourcesPath = "Resources-languages");
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
-builder.Services.AddControllersWithViews()
-        .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+builder.Services.AddMvc()
+        .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix, options => options.ResourcesPath = "Resources")
         .AddDataAnnotationsLocalization();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -19,13 +19,19 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 var app = builder.Build();
 
 // Configure the request localization options
-var supportedCultures = new[] { "en", "cz" };
-var localizationOptions = new RequestLocalizationOptions()
-    .SetDefaultCulture(supportedCultures[0])
-    .AddSupportedCultures(supportedCultures)
-    .AddSupportedUICultures(supportedCultures);
+var supportedCultures = new List<CultureInfo>
+{
+       new CultureInfo("cs-CZ"),
+       new CultureInfo("en-US")
+};
 
-app.UseRequestLocalization(localizationOptions);
+
+app.UseRequestLocalization(new RequestLocalizationOptions
+{
+    DefaultRequestCulture = new RequestCulture("cs-CZ"),
+    SupportedCultures = supportedCultures,
+    SupportedUICultures = supportedCultures
+});
 
 if (!app.Environment.IsDevelopment())
 {

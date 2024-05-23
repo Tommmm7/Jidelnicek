@@ -10,11 +10,11 @@ namespace Jidelnicek.web.Controllers
     public class StudentsController : Controller
     {
         private readonly AppDbContext dbContext;
-        private readonly IStringLocalizer<HomeController> _localizer;
-        public StudentsController(AppDbContext dbContext, IStringLocalizer<HomeController> localizer)
+        private IStringLocalizer<Resources.Dictionary> _localize;
+        public StudentsController(AppDbContext dbContext, IStringLocalizer<Resources.Dictionary> localize)
         {
             this.dbContext = dbContext;
-            _localizer = localizer;
+            _localize = localize;
         }
         [HttpGet]
         public IActionResult Add()

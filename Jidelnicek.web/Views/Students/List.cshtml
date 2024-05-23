@@ -1,11 +1,10 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-    
-    ViewData["Title"] = Localizer["Menu"];
-}
+﻿@using Microsoft.Extensions.Localization
+@using Jidelnicek.web
 
+@{
+    ViewData["Title"] = @Localize["Menu"];
+}
+@inject IStringLocalizer<Dictionary> Localize
 <h1>@ViewData["WelcomeMessage"]</h1>
 
 
@@ -17,15 +16,15 @@
     </h1>
 </div>
 
-<h2 class="text-left">@Localizer["Monday 21.5.2024"]</h2>
+<h2 class="text-left">@Localize["Day_Monday"] 21.5.2024</h2>
 
 <table class="table">
     <thead>
         <tr>
             <th> </th>
-            <th>@Localizer["Dish"]</th>
+            <th>@Localize["Dish"]</th>
             <th> </th>
-            <th>@Localizer["Price"]</th>
+            <th>@Localize["Price"]</th>
         </tr>
     </thead>
     <tbody>

@@ -1,4 +1,5 @@
 using Jidelnicek.web.Models;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System.Diagnostics;
@@ -7,18 +8,18 @@ namespace Jidelnicek.web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IStringLocalizer<HomeController> _localizer;
+        private readonly IStringLocalizer<HomeController> _localize;
 
-        public HomeController(IStringLocalizer<HomeController> localizer)
+        public HomeController(IStringLocalizer<HomeController> localize)
         {
-            _localizer = localizer;
+            _localize = localize;
         }
 
         public IActionResult Index()
         {
 
-            var str = _localizer["WelcomeMessage"];
-            ViewData["WelcomeMessage"] = _localizer["WelcomeMessage"];
+            var str = _localize["WelcomeMessage"];
+            ViewData["WelcomeMessage"] = _localize["WelcomeMessage"];
             return View();
         }
 
@@ -31,6 +32,17 @@ namespace Jidelnicek.web.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        [HttpPost]
+        public IActionResult SetLanguage(string culture, string returnUrl = "/")
+        {
+            Response.Cookies.Append(
+                CookieRequestCultureProvider.DefaultCookieName,
+                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+                new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
+            );
+
+            return LocalRedirect(returnUrl);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@inject IStringLocalizer<Dictionary> Localize
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -24,14 +25,14 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Students" asp-action="List">@Localizer["Menu"]</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Students" asp-action="List">@Localize["Menu"]</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">@Localizer["Contact us"]</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">@Localize["Contact_Us"]</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav">
-                        <li class="nav-item dropdown">
+                        @* <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
                                 @Thread.CurrentThread.CurrentUICulture.Name
                             </a>
@@ -39,9 +40,15 @@
                                 <li><a class="dropdown-item" href="@Url.Action("ChangeLanguage", "Language", new { culture = "en", returnUrl = Context.Request.Path })">En</a></li>
                                 <li><a class="dropdown-item" href="@Url.Action("ChangeLanguage", "Language", new { culture = "cz", returnUrl = Context.Request.Path })">Cz</a></li>
                             </ul>
-                        </li>
-                    </ul>
-                        </li>
+                        </li> *@
+                        <form id="languageForm" asp-controller="Home" asp-action="SetLanguage" method="post">
+                            <select name="culture" onchange="document.getElementById('languageForm').submit();">
+                                <option disabled selected>Vyberte jazyk</option>
+                                <option value="cs-CZ">Čeština</option>
+                                <option value="en-US">English</option>
+                                <!-- Add other options here -->
+                            </select>
+                        </form>
                     </ul>
                 </div>
             </div>
@@ -55,7 +62,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-        &copy; 2024 - Restaurant Na Dlouhé třídě - <a asp-area="" asp-controller="Home" asp-action="Privacy">@Localizer["Contact us"]</a>
+            &copy; 2024 - Restaurant Na Dlouhé třídě - <a asp-area="" asp-controller="Home" asp-action="Privacy">@Localize["Contact us"]</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
